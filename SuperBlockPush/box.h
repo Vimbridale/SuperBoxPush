@@ -11,7 +11,7 @@ public:
 	void render(int start[2], char map[5][5]);
 	bool occupied(int cords[2]);
 	void pushable(bool set[200], box boxes[200], int move[2], bool& flag);
-	void box::collides(bool set[200], box boxes[200], int move[2], bool& flag);
+	void box::collides(bool set[200], box boxes[200], int move[2], bool& flag, int pointer);
 };
 
 #endif

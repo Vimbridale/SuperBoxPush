@@ -21,7 +21,7 @@ void player::move(int move[], box boxes[200], int strength) {
 	for (int i = 0; i < 200; i++){
 		if (boxes[i].occupied(tmpCords)){
 			set[i] = true;
-			boxes[i].collides(set, boxes, move, flag);
+			boxes[i].collides(set, boxes, move, flag, i);
 		}
 	}
 	if (flag)

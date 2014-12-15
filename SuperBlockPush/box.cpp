@@ -31,7 +31,7 @@ void box::render(int start[2], char map[5][5]) {
 	}
 }
 
-void box::collides(bool set[200], box boxes[200], int move[2], bool& flag) {
+void box::collides(bool set[200], box boxes[200], int move[2], bool& flag, int pointer) {
 	if (coordinates[0] > 198 || coordinates[1] > 198 || coordinates[0] < 3 || coordinates[1] < 3)
 		flag = true;
 	for (int i = 0; i < 200; i ++) {
@@ -41,9 +41,10 @@ void box::collides(bool set[200], box boxes[200], int move[2], bool& flag) {
 				int tmpCords2[2] = {tmpCords1[0] + move[0], tmpCords1[1] + move[1]};
 				bool tmpBool1 = occupied(tmpCords1);
 				bool tmpBool2 = boxes[i].occupied(tmpCords2);
-					if (tmpBool1 && tmpBool2) {
+				if (tmpBool1 && tmpBool2 && i < pointer) {
 					set[i] = true;
-					boxes[i].collides(set, boxes, move, flag);
+					boxes[i].collides(set, boxes, move, flag, i);
+					
 				}
 			}
 		}
