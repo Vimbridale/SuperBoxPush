@@ -16,17 +16,17 @@ int main(){
 	while(1) {
 		world.printWorld(player, boxes);
 		char tmp;
-		int x;
+		int move[2] = {0,0};
 		tmp = _getch();
 		if (tmp == 'w') {
-			x = 4;
+			move[1] = 1;
 		}else if (tmp == 'a') {
-			x = 3;
+			move[0] = -1;
 		}else if (tmp == 's') {
-			x = 2;
+			move[1] = -1;
 		}else if (tmp == 'd') {
-			x = 1;
+			move[0] = 1;
 		}
-		player.move(x, boxes, strength);
+		player.move(move, boxes, strength);
 	}
 }

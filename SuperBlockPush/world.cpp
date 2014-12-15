@@ -13,9 +13,9 @@ void world::printWorld(player player, box boxes[200]){
 			if (i == 0 || i == 199) {
 				worldMap[i][j] = '_';
 			}else if (j == 0 || j == 199) {
-				worldMap[i][j] = '|';
+				worldMap[j][i] = '|';
 			}else {
-				worldMap[i][j] = '.';
+				worldMap[j][i] = '.';
 			}
 		}
 	}
@@ -26,8 +26,8 @@ void world::printWorld(player player, box boxes[200]){
 		if (startCords[0] > -1){
 			for (int i = 0; i < 5; i++) {
 				for (int j = 0; j < 5; j++){
-					if (map[i][j] != '.')
-						worldMap[startCords[0] + i][startCords[1] + j] = map[i][j];
+					if (map[j][i] != '.')
+						worldMap[startCords[0] + j][startCords[1] + i] = map[j][i];
 				}
 			}
 		}
@@ -50,7 +50,7 @@ void world::printWorld(player player, box boxes[200]){
 	}
 	for (int i = 0; i < 20; i++) {
 		for (int j = 0; j < 20; j++) {
-			cout << worldMap[effectiveCoordinates[0] - 10 + i][effectiveCoordinates[1] - 10 + j];
+			cout << worldMap[effectiveCoordinates[0] - 10 + j][effectiveCoordinates[1] + 10 - i];
 		}
 		cout << endl;
 	}

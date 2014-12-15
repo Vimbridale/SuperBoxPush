@@ -4,7 +4,7 @@
 class player {
 public:
 	int coordinates[2];
-	void move(int direction, box boxes[200], int strength);
+	void move(int move[2], box boxes[200], int strength);
 	player();
 };
 

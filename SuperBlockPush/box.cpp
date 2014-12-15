@@ -26,25 +26,26 @@ void box::render(int start[2], char map[5][5]) {
 	for (int i = 0; i < 5; i++){
 		for (int j = 0; j < 5; j++){
 			fin >> tmp;
-			map[i][j] = tmp;
+			map[j][i] = tmp;
 		}
 	}
 }
 
-void box::pushable(bool set[200], box boxes[200], int direction, bool& flag){
-	int cords1[2], cords2[2], cords3[2];
-	switch (direction) {
-	case 1: cords1[0] = coordinates[0] - 1; cords1[1] = coordinates[1] + 2;  cords2[0] = coordinates[0]; cords2[1] = coordinates[1] + 2;  cords3[0] = coordinates[0] + 1; cords3[1] = coordinates[1] + 2; break;
-	case 2: cords1[0] = coordinates[0] + 2; cords1[1] = coordinates[1] - 1;  cords2[0] = coordinates[0] + 2; cords2[1] = coordinates[1];  cords3[0] = coordinates[0] + 2; cords3[1] = coordinates[1] + 1; break;
-	case 3: cords1[0] = coordinates[0] - 1; cords1[1] = coordinates[1] - 2;  cords2[0] = coordinates[0]; cords2[1] = coordinates[1] - 2;  cords3[0] = coordinates[0] + 1; cords3[1] = coordinates[1] - 2; break;
-	case 4: cords1[0] = coordinates[0] - 2; cords1[1] = coordinates[1] - 1;  cords2[0] = coordinates[0] - 2; cords2[1] = coordinates[1];  cords3[0] = coordinates[0] - 2; cords3[1] = coordinates[1] + 1; break;
-	}
-	if(cords1[0] < 1 || cords1[0] > 198 || cords1[1] < 1 || cords1[1] > 198 || cords2[0] < 1 || cords2[0] > 198 || cords2[1] < 1 || cords2[1] > 198 || cords3[0] < 1 || cords3[0] > 198 || cords3[1] < 1 || cords3[1] > 198)
+void box::collides(bool set[200], box boxes[200], int move[2], bool& flag) {
+	if (coordinates[0] > 198 || coordinates[1] > 198 || coordinates[0] < 3 || coordinates[1] < 3)
 		flag = true;
-	for (int i = 0; i < 200; i++) {
-		if (boxes[i].occupied(cords1) || boxes[i].occupied(cords2) || boxes[i].occupied(cords3)) {
-			set[i] = true;
-			boxes[i].pushable(set, boxes, direction, flag);
+	for (int i = 0; i < 200; i ++) {
+		for (int j = 0; j < 7; j++) {
+			for (int k = 0; k < 7; k++) {
+				int tmpCords1[2] = {coordinates[0] - 3 + j, coordinates[1] - 3 + k};
+				int tmpCords2[2] = {tmpCords1[0] + move[0], tmpCords1[1] + move[1]};
+				bool tmpBool1 = occupied(tmpCords1);
+				bool tmpBool2 = boxes[i].occupied(tmpCords2);
+					if (tmpBool1 && tmpBool2) {
+					set[i] = true;
+					boxes[i].collides(set, boxes, move, flag);
+				}
+			}
 		}
 	}
 }
