@@ -35,18 +35,27 @@ void box::collides(bool set[200], box boxes[200], int move[2], bool& flag, int p
 	if (coordinates[0] > 198 || coordinates[1] > 198 || coordinates[0] < 3 || coordinates[1] < 3)
 		flag = true;
 	for (int i = 0; i < 200; i ++) {
-		for (int j = 0; j < 7; j++) {
-			for (int k = 0; k < 7; k++) {
-				int tmpCords1[2] = {coordinates[0] - 3 + k, coordinates[1] - 3 + j};
-				int tmpCords2[2] = {tmpCords1[0] + move[0], tmpCords1[1] + move[1]};
-				bool tmpBool1 = occupied(tmpCords1); //Tests if the currently chacking block occupies a space
-				bool tmpBool2 = boxes[i].occupied(tmpCords2); //Tests the same space displaced by the movement, where the block will be.
-				if (tmpBool1 && tmpBool2 && i != pointer) {
-					set[i] = true;
-					boxes[i].collides(set, boxes, move, flag, i);
-					
+		if (close(boxes[i].coordinates)){
+			for (int j = 0; j < 7; j++) {
+				for (int k = 0; k < 7; k++) {
+					int tmpCords1[2] = {coordinates[0] - 3 + k, coordinates[1] - 3 + j};
+					int tmpCords2[2] = {tmpCords1[0] + move[0], tmpCords1[1] + move[1]};
+					bool tmpBool1 = occupied(tmpCords1); //Tests if the currently chacking block occupies a space
+					bool tmpBool2 = boxes[i].occupied(tmpCords2); //Tests the same space displaced by the movement, where the block will be.
+					if (tmpBool1 && tmpBool2 && i != pointer) {
+						set[i] = true;
+						boxes[i].collides(set, boxes, move, flag, i);
+					}				
 				}
 			}
 		}
 	}
+}
+
+bool box::close(int cords[2]) {
+	bool tmp = false;
+	if ( cords[0] > coordinates[0] - 7 && cords[0] < coordinates[0] + 7 && cords[1] > coordinates[1] - 7 && cords[1] < coordinates[1] + 7){
+		tmp = true;
+	}
+	return tmp;
 }

@@ -12,6 +12,7 @@ public:
 	bool occupied(int cords[2]);
 	void pushable(bool set[200], box boxes[200], int move[2], bool& flag);
 	void box::collides(bool set[200], box boxes[200], int move[2], bool& flag, int pointer);
+	bool close(int cords[2]);
 };
 
 #endif
