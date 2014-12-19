@@ -1,0 +1,23 @@
+Needed Features-
+
+	Start menu -
+		Load world
+		New world
+		Options
+
+	Run game without input pause-
+		Take input for every key
+			pause button
+				save world
+				quit
+				options
+			movement
+			Grabbing?
+		Block reactions
+	Different block types
+		size
+		odd shapes
+		reactions
+	Dynamic block list and world size
+		handle large numbers of blocks
+		divide world into subsections?
