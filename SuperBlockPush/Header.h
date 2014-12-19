@@ -5,3 +5,5 @@
 #include "player.h"
 #include "world.h"
 #include "box.h"
+
+void place(box boxes[200], int pointer);

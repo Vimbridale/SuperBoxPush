@@ -8,30 +8,7 @@ int main(){
 	box boxes[200];
 	int strength = 3;
 	for (int i = 0; i < 200; i++){
-		bool placed = false;
-		while (!placed) {
-			bool tmp = false;
-			int move[] = {0, 0};
-			boxes[i].coordinates[0] = (rand() % 195 + 2);
-			boxes[i].coordinates[1] = (rand() % 195 + 2);
-			for (int o = 0; o < 200; o ++) {
-				if (boxes[i].close(boxes[o].coordinates)){
-					for (int j = 0; j < 7; j++) {
-						for (int k = 0; k < 7; k++) {
-							int tmpCords1[2] = {boxes[i].coordinates[0] - 3 + k, boxes[i].coordinates[1] - 3 + j};
-							int tmpCords2[2] = {tmpCords1[0] + move[0], tmpCords1[1] + move[1]};
-							bool tmpBool1 = boxes[i].occupied(tmpCords1); //Tests if the currently chacking block occupies a space
-							bool tmpBool2 = boxes[o].occupied(tmpCords2); //Tests the same space displaced by the movement, where the block will be.
-							if (tmpBool1 && tmpBool2 && i != i)
-								tmp = true;
-						}				
-					}
-				}
-			}
-			if (!tmp) {
-				placed = true;
-			}
-		}
+		place(boxes, i);
 	}
 	player player;
 	world world;
@@ -50,5 +27,27 @@ int main(){
 			move[0] = 1;
 		}
 		player.move(move, boxes, strength);
+	}
+}
+
+
+void place(box boxes[200], int pointer) {
+	bool validplace = false;
+	while (!validplace) {
+		validplace = true;
+		boxes[pointer].coordinates[0] = ((rand() % 196) + 2);
+		boxes[pointer].coordinates[1] = ((rand() % 196) + 2);
+		for (int i = 0; i < 200; i++) {
+			if (boxes[pointer].close(boxes[i].coordinates) && pointer != i) {
+				for (int j = -3; j < 3; j++) {
+					for (int k = -3; k < 3; k++) {
+						int tmpcords[] = {boxes[pointer].coordinates[0] + j, boxes[pointer].coordinates[1] + k};
+						if (boxes[pointer].occupied(tmpcords) && boxes[i].occupied(tmpcords)) {
+							validplace = false;
+						}
+					}
+				}
+			}
+		}
 	}
 }

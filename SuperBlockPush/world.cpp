@@ -1,5 +1,6 @@
 #include "world.h"
 #include <iostream>
+#include "Windows.h"
 
 using namespace std;
 
@@ -7,11 +8,13 @@ world::world(){
 }
 
 void world::printWorld(player player, box boxes[200]){
+	COORD spot = {0,0};
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), spot);
 	char worldMap[200][200];
 	for (int i = 0; i < 200; i++){
 		for (int j = 0; j < 200; j++){
 			if (i == 0 || i == 199) {
-				worldMap[i][j] = '_';
+				worldMap[j][i] = '_';
 			}else if (j == 0 || j == 199) {
 				worldMap[j][i] = '|';
 			}else {
